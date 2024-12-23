@@ -4,6 +4,6 @@
     {
         public int ImageId { get; set; }
         public string ImageName { get; set; }
-        public int PropertyId { get; set; }
+        public int PropertyDetailId { get; set; }
     }
 }

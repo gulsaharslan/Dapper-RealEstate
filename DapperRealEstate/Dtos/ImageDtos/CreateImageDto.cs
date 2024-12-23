@@ -3,6 +3,6 @@
     public class CreateImageDto
     {
         public string ImageName { get; set; }
-        public int PropertyId { get; set; }
+        public int PropertyDetailId { get; set; }
     }
 }
