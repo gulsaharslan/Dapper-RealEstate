@@ -1,27 +1,52 @@
-﻿using DapperRealEstate.Dtos.PropertyTypeDtos;
+﻿using Dapper;
+using DapperRealEstate.Context;
+using DapperRealEstate.Dtos.PropertyTypeDtos;
 
 namespace DapperRealEstate.Services.PropertyTypeServices
 {
     public class PropertyTypeService : IPropertyTypeService
     {
-        public Task CreatePropertyTypeAsync(CreatePropertyTypeDto createPropertyTypeDto)
+        private readonly RealEstateContext _context;
+
+        public PropertyTypeService(RealEstateContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task DeletePropertyTypeAsync(int id)
+        public async Task CreatePropertyTypeAsync(CreatePropertyTypeDto createPropertyTypeDto)
         {
-            throw new NotImplementedException();
+            string query = "Insert Into PropertyType (PropertyType) values (@propertyType)";
+            var parameters = new DynamicParameters();
+            parameters.Add("@propertyTypeName", createPropertyTypeDto.PropertyType);
+            var connection = _context.CreateConnection();
+            await connection.ExecuteAsync(query, parameters);
         }
 
-        public Task<List<ResultPropertyTypeDto>> GetAllPropertyTypeAsync()
+        public async Task DeletePropertyTypeAsync(int id)
         {
-            throw new NotImplementedException();
+            string query = "Delete From PropertyType Where PropertyId=@propertyId";
+            var parameters = new DynamicParameters();
+            parameters.Add("@propertyId", id);
+            var connection = _context.CreateConnection();
+            await connection.ExecuteAsync(query, parameters);
         }
 
-        public Task<GetByIdPropertyTypeDto> GetPropertyTypeAsync(int id)
+        public async Task<List<ResultPropertyTypeDto>> GetAllPropertyTypeAsync()
         {
-            throw new NotImplementedException();
+            string query = "Select * From PropertyType";
+            var connection = _context.CreateConnection();
+            var values = await connection.QueryAsync<ResultPropertyTypeDto>(query);
+            return values.ToList();
+        }
+
+        public async Task<GetByIdPropertyTypeDto> GetPropertyTypeAsync(int id)
+        {
+            string query = "Select * From PropertyType Where PropertyId=@propertyId";
+            var parameters = new DynamicParameters();
+            parameters.Add("@propertyId", id);
+            var connection = _context.CreateConnection();
+            var values = await connection.QueryFirstOrDefaultAsync<GetByIdPropertyTypeDto>(query, parameters);
+            return values;
         }
 
         public Task UpdatePropertyTypeAsync(UpdatePropertyTypeDto updatePropertyTypeDto)
