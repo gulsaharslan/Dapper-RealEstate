@@ -20,5 +20,8 @@
         public int CategoryId { get; set; }
         public bool PropertySlider { get; set; }
         public bool PropertyHome { get; set; }
+        public string CategoryName { get; set; }
+        public string LocationName { get; set; }
+        public string PropertyType { get; set; }
     }
 }

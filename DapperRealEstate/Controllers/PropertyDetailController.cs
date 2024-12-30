@@ -1,7 +1,9 @@
-﻿using DapperRealEstate.Services.AgentServices;
+﻿using DapperRealEstate.Dtos.PropertyDetailDtos;
+using DapperRealEstate.Services.AgentServices;
 using DapperRealEstate.Services.CategoryServices;
 using DapperRealEstate.Services.ImageServices;
 using DapperRealEstate.Services.LocationServices;
+using DapperRealEstate.Services.PropertyDetailServices;
 using DapperRealEstate.Services.PropertyTypeServices;
 using DapperRealEstate.Services.TagServices;
 using Microsoft.AspNetCore.Mvc;
@@ -16,8 +18,9 @@ namespace DapperRealEstate.Controllers
         private readonly IImageService _imageService;
         private readonly ITagService _tagService;
         private readonly ICategoryService _categoryService;
+        private readonly IPropertyDetailService _propertyDetailService;
 
-        public PropertyDetailController(IPropertyTypeService propertyTypeService, IAgentService agentService, ILocationService locationService, IImageService imageService, ITagService tagService, ICategoryService categoryService)
+        public PropertyDetailController(IPropertyTypeService propertyTypeService, IAgentService agentService, ILocationService locationService, IImageService imageService, ITagService tagService, ICategoryService categoryService, IPropertyDetailService propertyDetailService)
         {
             _propertyTypeService = propertyTypeService;
             _agentService = agentService;
@@ -25,7 +28,16 @@ namespace DapperRealEstate.Controllers
             _imageService = imageService;
             _tagService = tagService;
             _categoryService = categoryService;
+            _propertyDetailService = propertyDetailService;
         }
+
+        [HttpGet]
+        public async Task<IActionResult> PropertyList()
+        {
+            var values=await _propertyDetailService.GetAllPropertyDetailAsync();
+            return View(values);
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -36,6 +48,18 @@ namespace DapperRealEstate.Controllers
             ViewBag.Locations = await _locationService.GetAllLocationAsync();
             ViewBag.PropertyTypes = await _propertyTypeService.GetAllPropertyTypeAsync();
             return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Index(CreatePropertyDetailDto createPropertyDetailDto)
+        {
+            await _propertyDetailService.CreatePropertyDetailAsync(createPropertyDetailDto);
+            return RedirectToAction("PropertyList");
+        }
+
+        public async Task<IActionResult> DeleteProperty(int id)
+        {
+            await _propertyDetailService.DeletePropertyDetailAsync(id);
+            return RedirectToAction("PropertyList");
         }
     }
 }

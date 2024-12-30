@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using DapperRealEstate.Context;
+using DapperRealEstate.Dtos.LocationDtos;
 using DapperRealEstate.Dtos.PropertyDetailDtos;
 
 namespace DapperRealEstate.Services.PropertyDetailServices
@@ -39,19 +40,40 @@ namespace DapperRealEstate.Services.PropertyDetailServices
 
         }
 
-        public Task DeletePropertyDetailAsync(int id)
+        public async Task DeletePropertyDetailAsync(int id)
         {
-            throw new NotImplementedException();
+            string query = "Delete From PropertyDetail Where PropertyDetailId=@propertyDetailId";
+            var parameters = new DynamicParameters();
+            parameters.Add("@propertyDetailId", id);
+            var connection = _context.CreateConnection();
+            await connection.ExecuteAsync(query, parameters);
         }
 
-        public Task<List<ResultPropertyDetailDto>> GetAllPropertyDetailAsync()
+        public async Task<List<ResultPropertyDetailDto>> GetAllPropertyDetailAsync()
         {
-            throw new NotImplementedException();
+            string query = "Select * From PropertyDetail Inner Join Location On Location.LocationId=PropertyDetail.LocationId Inner Join Category on Category.CategoryId=PropertyDetail.CategoryId Inner Join PropertyType on PropertyType.PropertyId=PropertyDetail.PropertyId";
+            var connection = _context.CreateConnection();
+            var values = await connection.QueryAsync<ResultPropertyDetailDto>(query);
+            return values.ToList();
         }
 
         public Task<GetByIdPropertyDetailDto> GetPropertyDetailAsync(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<List<ResultPropertyDetailDto>> GetSearchPropertyAsync(int locationId, int propertyId, int categoryId)
+        {
+            string query = "SELECT * FROM PropertyDetail WHERE LocationId = @locationId AND PropertyId = @propertyId AND CategoryId = @categoryId";
+
+            var parameters = new DynamicParameters();
+            parameters.Add("@locationId", locationId);
+            parameters.Add("@propertyId", propertyId);
+            parameters.Add("@categoryId", categoryId);
+            var connection = _context.CreateConnection();
+            var values = await connection.QueryAsync<ResultPropertyDetailDto>(query,parameters);
+            return values.ToList();
+
         }
 
         public Task UpdatePropertyDetailAsync(UpdatePropertyDetailDto updatePropertyDetailDto)
