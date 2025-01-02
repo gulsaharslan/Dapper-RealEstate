@@ -49,6 +49,14 @@ namespace DapperRealEstate.Services.LocationServices
             return values;
         }
 
+        public async Task<int> GetLocationCountAsync()
+        {
+            string query = "Select Count(*) From Location";
+            var connection = _context.CreateConnection();
+            var value=await connection.QueryFirstOrDefaultAsync<int>(query);
+            return value;
+        }
+
         public Task UpdateLocationAsync(UpdateLocationDto updateLocationDto)
         {
             throw new NotImplementedException();

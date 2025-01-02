@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using DapperRealEstate.Context;
+using DapperRealEstate.Dtos.CategoryDtos;
 using DapperRealEstate.Dtos.PropertyTypeDtos;
 
 namespace DapperRealEstate.Services.PropertyTypeServices
@@ -47,6 +48,24 @@ namespace DapperRealEstate.Services.PropertyTypeServices
             var connection = _context.CreateConnection();
             var values = await connection.QueryFirstOrDefaultAsync<GetByIdPropertyTypeDto>(query, parameters);
             return values;
+        }
+
+        public async Task<int> GetPropertyTypeCountAsync()
+        {
+            string query = "Select Count(*) From PropertyType";
+            var connection = _context.CreateConnection();
+            var value=await connection.QueryFirstOrDefaultAsync<int>(query);
+            return value;
+        }
+
+        public async Task<List<ResultPropertyTypeDto>> GetPropertyTypeWithPropertyCountAsync()
+        {
+            string query = @"SELECT  pt.PropertyId,pt.PropertyType,COUNT(p.PropertyId) AS PropertyCount FROM 
+            PropertyType pt LEFT JOIN PropertyDetail p ON pt.PropertyId = p.PropertyId GROUP BY  pt.PropertyId, pt.PropertyType";
+
+            var connection = _context.CreateConnection();
+            var propertyTypes = await connection.QueryAsync<ResultPropertyTypeDto>(query); // Aynı DTO kullanılabilir
+            return propertyTypes.ToList();
         }
 
         public Task UpdatePropertyTypeAsync(UpdatePropertyTypeDto updatePropertyTypeDto)

@@ -42,6 +42,14 @@ namespace DapperRealEstate.Services.AgentServices
             return values;
         }
 
+        public async Task<int> GetAgentCountAsync()
+        {
+            string query = "Select Count(*) From Agent";
+            var connection=_context.CreateConnection();
+            var value=await connection.QueryFirstOrDefaultAsync<int>(query);
+            return value;
+        }
+
         public async Task<List<ResultAgentDto>> GetAllAgentAsync()
         {
             string query = "Select * From Agent";

@@ -9,5 +9,6 @@ namespace DapperRealEstate.Services.CategoryServices
         Task DeleteCategoryAsync(int id);
         Task UpdateCategoryAsync(UpdateCategoryDto updateCategoryDto);
         Task<GetByIdCategoryDto> GetCategoryAsync(int id);
+
     }
 }

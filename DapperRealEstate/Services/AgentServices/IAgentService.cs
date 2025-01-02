@@ -9,5 +9,6 @@ namespace DapperRealEstate.Services.AgentServices
         Task DeleteAgentAsync(int id);
         Task UpdateAgentAsync(UpdateAgentDto updateAgentDto);
         Task<GetByIdAgentDto> GetAgentAsync(int id);
+        Task<int> GetAgentCountAsync();
     }
 }

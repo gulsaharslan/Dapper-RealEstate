@@ -1,4 +1,5 @@
-﻿using DapperRealEstate.Dtos.PropertyTypeDtos;
+﻿using DapperRealEstate.Dtos.CategoryDtos;
+using DapperRealEstate.Dtos.PropertyTypeDtos;
 
 namespace DapperRealEstate.Services.PropertyTypeServices
 {
@@ -9,5 +10,7 @@ namespace DapperRealEstate.Services.PropertyTypeServices
         Task DeletePropertyTypeAsync(int id);
         Task UpdatePropertyTypeAsync(UpdatePropertyTypeDto updatePropertyTypeDto);
         Task<GetByIdPropertyTypeDto> GetPropertyTypeAsync(int id);
+        Task<int> GetPropertyTypeCountAsync();
+        Task<List<ResultPropertyTypeDto>> GetPropertyTypeWithPropertyCountAsync();
     }
 }

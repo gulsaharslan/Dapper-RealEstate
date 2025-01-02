@@ -10,5 +10,11 @@ namespace DapperRealEstate.Services.PropertyDetailServices
         Task UpdatePropertyDetailAsync(UpdatePropertyDetailDto updatePropertyDetailDto);
         Task<GetByIdPropertyDetailDto> GetPropertyDetailAsync(int id);
         Task<List<ResultPropertyDetailDto>> GetSearchPropertyAsync(int locationId, int propertyTypeId, int categoryId);
+
+        Task<List<ResultSliderPropertyDto>> GetSliderPropertyAsync();
+        Task<List<ResultPropertyDetailDto>> GetRecentPropertyAsync();
+        Task<List<ResultPropertyDetailDto>> GetLast4PropertyAsync();
+        Task<int> GetPropertyCount();
+        
     }
 }

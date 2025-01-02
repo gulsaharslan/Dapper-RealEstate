@@ -9,5 +9,6 @@ namespace DapperRealEstate.Services.LocationServices
         Task DeleteLocationAsync(int id);
         Task UpdateLocationAsync(UpdateLocationDto updateLocationDto);
         Task<GetByIdLocationDto> GetLocationAsync(int id);
+        Task<int> GetLocationCountAsync();
     }
 }

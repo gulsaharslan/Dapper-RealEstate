@@ -4,5 +4,6 @@
     {
         public int PropertyId { get; set; }
         public string PropertyType { get; set; }
+        public int PropertyCount { get; set; }
     }
 }

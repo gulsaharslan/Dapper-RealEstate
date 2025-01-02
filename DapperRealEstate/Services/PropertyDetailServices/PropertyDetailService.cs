@@ -57,9 +57,33 @@ namespace DapperRealEstate.Services.PropertyDetailServices
             return values.ToList();
         }
 
-        public Task<GetByIdPropertyDetailDto> GetPropertyDetailAsync(int id)
+        public async Task<List<ResultPropertyDetailDto>> GetLast4PropertyAsync()
+        {
+            string query = "SELECT TOP 4 PropertyDetailId,  Name,  PropertyType,Description,Area,BedRooms,BathRooms, CategoryName, ImageUrl, Price FROM PropertyDetail Inner Join Category on Category.CategoryId=PropertyDetail.CategoryId Inner Join PropertyType on PropertyType.PropertyId=PropertyDetail.PropertyId ORDER BY  CreatedDate DESC ";
+            var connection = _context.CreateConnection();
+            var values = await connection.QueryAsync<ResultPropertyDetailDto>(query);
+            return values.ToList();
+        }
+
+        public async Task<int> GetPropertyCount()
+        {
+            string query = "Select Count(*) From PropertyDetail";
+            var connection = _context.CreateConnection();
+            var value=await connection.QueryFirstOrDefaultAsync<int>(query);
+            return value;
+        }
+
+        public async Task<GetByIdPropertyDetailDto> GetPropertyDetailAsync(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<List<ResultPropertyDetailDto>> GetRecentPropertyAsync()
+        {
+            string query = "SELECT PropertyDetailId, Name, PropertyType, CategoryName, ImageUrl,Price FROM PropertyDetail Inner Join Category on Category.CategoryId=PropertyDetail.CategoryId Inner Join PropertyType on PropertyType.PropertyId=PropertyDetail.PropertyId  WHERE PropertyHome = 1";
+            var connection = _context.CreateConnection();
+            var values = await connection.QueryAsync<ResultPropertyDetailDto>(query);
+            return values.ToList();
         }
 
         public async Task<List<ResultPropertyDetailDto>> GetSearchPropertyAsync(int locationId, int propertyId, int categoryId)
@@ -74,6 +98,14 @@ namespace DapperRealEstate.Services.PropertyDetailServices
             var values = await connection.QueryAsync<ResultPropertyDetailDto>(query,parameters);
             return values.ToList();
 
+        }
+
+        public async Task<List<ResultSliderPropertyDto>> GetSliderPropertyAsync()
+        {
+            string query = "SELECT PropertyId, Name, Address, Description, ImageUrl, Price FROM PropertyDetail WHERE PropertySlider = 1";
+            var connection = _context.CreateConnection();
+            var values = await connection.QueryAsync<ResultSliderPropertyDto>(query);
+            return values.ToList();
         }
 
         public Task UpdatePropertyDetailAsync(UpdatePropertyDetailDto updatePropertyDetailDto)

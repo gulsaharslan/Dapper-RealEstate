@@ -39,6 +39,7 @@ namespace DapperRealEstate.Services.CategoryServices
             return values.ToList();
         }
 
+
         public async Task<GetByIdCategoryDto> GetCategoryAsync(int id)
         {
             string query = "Select * From Category Where CategoryId=@categoryId";

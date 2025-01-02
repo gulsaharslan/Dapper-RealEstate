@@ -1,9 +1,8 @@
-﻿@model ResultPropertyDetailDto
-
-
+﻿
 @{
     Layout = null;
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,6 +32,23 @@
     <link rel="stylesheet" href="~/royalestate-master/css/style.css">
 </head>
 <body>
+    <div class="top">
+        <div class="container">
+            <div class="row d-flex align-items-center">
+                <div class="col">
+                    <p class="social d-flex">
+                        <a href="#"><span class="icon-facebook"></span></a>
+                        <a href="#"><span class="icon-twitter"></span></a>
+                        <a href="#"><span class="icon-google"></span></a>
+                        <a href="#"><span class="icon-pinterest"></span></a>
+                    </p>
+                </div>
+                <div class="col d-flex justify-content-end">
+                    <p class="num"><span class="icon-phone"></span> + 1700 12345 6789</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
@@ -43,87 +59,98 @@
 
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active"><a href="/Default/Index/" class="nav-link">Anasayfa</a></li>
-                    <li class="nav-item"><a href="/PropertyDetail/PropertyList/" class="nav-link">Tüm İlanlar</a></li>
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item active"><a href="property.html" class="nav-link">Property</a></li>
                     <li class="nav-item"><a href="agents.html" class="nav-link">Agents</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item cta"><a href="contact.html" class="nav-link ml-lg-2"><span class="icon-user"></span> Sign-In</a></li>
+                    <li class="nav-item cta cta-colored"><a href="contact.html" class="nav-link"><span class="icon-pencil"></span> Sign-Up</a></li>
+
                 </ul>
             </div>
         </div>
     </nav>
     <!-- END nav -->
-    @await Component.InvokeAsync("Slider")
 
-    <section class="ftco-search">
-        <style>
-            select option {
-                color: black; /* Seçeneklerin metin rengi */
-            }
-
-            select {
-                color: black; /* Varsayılan metin rengi */
-            }
-        </style>
+    <div class="hero-wrap" style="background-image: url('images/bg_1.jpg');">
+        <div class="overlay"></div>
         <div class="container">
-            <div class="row">
-                <div class="col-md-12 search-wrap">
-                    <form action="/Default/Index/" method="post" class="search-property">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="LocationId">Şehir</label>
-                                    <select class="form-control" asp-for="LocationId">
-                                        <option selected disabled>Seçiniz</option>
-                                        @foreach (var item in ViewBag.Locations)
-                                        {
-                                            <option value="@item.LocationId">@item.LocationName</option>
-                                        }
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="CategoryId">Kategori</label>
-                                    <select class="form-control" asp-for="CategoryId">
-                                        <option selected disabled>Seçiniz</option>
-                                        @foreach (var item in ViewBag.Categories)
-                                        {
-                                            <option value="@item.CategoryId">@item.CategoryName</option>
-                                        }
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="PropertyId">Türü</label>
-                                    <select class="form-control" asp-for="PropertyId">
-                                        <option selected disabled>Seçiniz</option>
-                                        @foreach (var item in ViewBag.PropertyTypes)
-                                        {
-                                            <option value="@item.PropertyId">@item.PropertyType</option>
-                                        }
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3 align-self-end">
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-black btn-block">Ara</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+            <div class="row no-gutters slider-text align-items-center justify-content-center">
+                <div class="col-md-9 ftco-animate text-center">
+                    <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="index.html">Home</a></span> <span class="mr-2"><a href="blog.html">Blog</a></span> <span>Property Single</span></p>
+                    <h1 class="mb-3 bread">Property Single</h1>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
 
-    @await Component.InvokeAsync("RecentProperty")
-    @await Component.InvokeAsync("Last4")
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-md-12 ftco-animate">
+                            <div class="single-slider owl-carousel">
+                                <div class="item">
+                                    <div class="properties-img" style="background-image: url(images/properties-1.jpg);"></div>
+                                </div>
+                                <div class="item">
+                                    <div class="properties-img" style="background-image: url(images/properties-2.jpg);"></div>
+                                </div>
+                                <div class="item">
+                                    <div class="properties-img" style="background-image: url(images/properties-3.jpg);"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 Properties-single mt-4 mb-5 ftco-animate">
+                            <h2>Crowne Plaza Columbus</h2>
+                            <p class="rate mb-4">
+                                <span class="loc"><a href="#"><i class="icon-map"></i> 291 South 21th Street, Suite 721 New York NY 10016</a></span>
+                            </p>
+                            <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>
+                            <div class="d-md-flex mt-5 mb-5">
+                                <ul>
+                                    <li><span>Lot Area: </span> 1,250 SQ FT</li>
+                                    <li><span>Bed Rooms: </span> 4</li>
+                                    <li><span>Bath Rooms: </span> 4</li>
+                                    <li><span>2 Garage: </span> 4</li>
+                                </ul>
+                                <ul class="ml-md-5">
+                                    <li><span>Floor Area: </span> 1,300 SQ FT</li>
+                                    <li><span>Year Build:: </span> 2018</li>
+                                    <li><span>Stories: </span> 1</li>
+                                    <li><span>Roofing: </span> New</li>
+                                </ul>
+                            </div>
+                            <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>
+                        </div>
+                        <div class="col-md-12 properties-single ftco-animate mb-5 mt-4">
+                            <h3 class="mb-4">Take A Tour</h3>
+                            <div class="block-16">
+                                <figure>
+                                    <img src="images/properties-6.jpg" alt="Image placeholder" class="img-fluid">
+                                    <a href="https://vimeo.com/45830194" class="play-button popup-vimeo"><span class="icon-play"></span></a>
+                                </figure>
+                            </div>
+                        </div>
 
-    @await Component.InvokeAsync("Statistic")
-    @await Component.InvokeAsync("Testimonial")
 
+                    </div>
+                </div> <!-- .col-md-8 -->
+                <div class="col-lg-4 sidebar ftco-animate">
+                   
+                   @await Component.InvokeAsync("Categories")
 
+                    @await Component.InvokeAsync("Tags")
+
+                  
+                </div>
+            </div>
+        </div>
+    </section> <!-- .section -->
 
 
     <footer class="ftco-footer ftco-bg-dark ftco-section">
@@ -133,7 +160,7 @@
                     <div class="ftco-footer-widget mb-4">
                         <h2 class="ftco-heading-2">Royal Estate</h2>
                         <p>Aradığınız tüm evler, arsalar burada.</p>
-                        
+
                     </div>
                 </div>
                 <div class="col-md">

@@ -1,0 +1,12 @@
+﻿@model List<DapperRealEstate.Dtos.PropertyTypeDtos.ResultPropertyTypeDto>
+
+<div class="sidebar-box ftco-animate">
+    <div class="categories">
+        <h3>Emlak Türleri</h3>
+        @foreach(var item in Model)
+        {
+            <li><a href="#">@item.PropertyType <span>@item.PropertyCount</span></a></li>
+        }
+     
+    </div>
+</div>

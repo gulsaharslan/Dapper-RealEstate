@@ -23,5 +23,10 @@ namespace DapperRealEstate.Controllers
             var values=await _propertyDetailService.GetSearchPropertyAsync(locationId, propertyId, categoryId);
             return View(values);
         }
+
+        public async Task<IActionResult> PropertySingle()
+        {
+            return View();
+        }
     }
 }
